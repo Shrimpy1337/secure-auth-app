@@ -1,6 +1,4 @@
-require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -33,14 +31,4 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Une erreur est survenue.' });
 });
 
-const PORT = process.env.PORT || 3000;
-
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    app.listen(PORT, () => console.log(`Serveur lancé sur le port ${PORT}`));
-  })
-  .catch((err) => {
-    console.error('Erreur de connexion MongoDB :', err);
-    process.exit(1);
-  });
+module.exports = app;
