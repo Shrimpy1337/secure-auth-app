@@ -1,11 +1,9 @@
 name: CI/CD
-
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
 jobs:
   test:
     name: Lint & Tests
@@ -13,21 +11,19 @@ jobs:
     steps:
       - name: Checkout du code
         uses: actions/checkout@v4
-
       - name: Installation de Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
       - name: Installation des dépendances
         run: npm install
-
+      - name: Debug - lister les fichiers
+        run: find . -not -path "*/node_modules/*" -not -path "*/.git/*"
       - name: Exécution des tests
         run: npm test
         env:
           JWT_ACCESS_SECRET: test_secret_access
           JWT_REFRESH_SECRET: test_secret_refresh
-
   build-and-push:
     name: Build & Push image Docker
     needs: test
@@ -40,14 +36,12 @@ jobs:
     steps:
       - name: Checkout du code
         uses: actions/checkout@v4
-
       - name: Connexion au GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build et push de l'image
         uses: docker/build-push-action@v5
         with:
