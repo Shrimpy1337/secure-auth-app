@@ -1,10 +1,12 @@
 # 🔐 Secure Auth App — Application web avec authentification sécurisée
 
+![CI/CD](https://github.com/Shrimpy1337/secure-auth-app/actions/workflows/ci-cd.yml/badge.svg)
+
 Application web développée pour concevoir **et** exploiter volontairement ses propres vulnérabilités, afin de valider concrètement les correctifs de sécurité mis en place — plutôt que de les appliquer en théorie.
 
 ## 🎯 Contexte
 
-Ce projet a été réalisé dans le cadre de ma formation d'ingénieur en cybersécurité à l'ISEP. L'objectif : construire un système d'authentification complet, puis me mettre à la place d'un attaquant pour tenter de le compromettre, avant de corriger chaque faille identifiée.
+Ce projet a été réalisé dans le cadre de ma formation d'ingénieur en cybersécurité à l'ISEP. L'objectif : construire un système d'authentification complet, puis me mettre à la place d'un attaquant pour tenter de le compromettre, avant de corriger chaque faille identifiée. Le projet inclut également un pipeline CI/CD complet (tests automatisés + build + publication d'image Docker).
 
 ## ⚙️ Fonctionnalités
 
@@ -26,10 +28,12 @@ Ce projet a été réalisé dans le cadre de ma formation d'ingénieur en cybers
 
 ## 🧱 Stack technique
 
-- **Backend** : Node.js
-- **Base de données** : MongoDB / PostgreSQL
+- **Backend** : Node.js / Express
+- **Base de données** : MongoDB (Mongoose)
 - **Authentification** : JWT (jsonwebtoken), bcrypt
-- **Déploiement** : Docker, Docker Compose
+- **Déploiement** : Docker (multi-stage), Docker Compose
+- **CI/CD** : GitHub Actions (tests automatisés, build et publication d'image sur GitHub Container Registry)
+- **Tests** : Jest, Supertest
 
 ## 🚀 Lancer le projet en local
 
@@ -42,17 +46,32 @@ cd secure-auth-app
 docker compose up --build
 ```
 
-L'application est ensuite accessible sur `http://localhost:3000` (à adapter selon ta config).
+L'application est accessible sur `http://localhost:3000`.
+
+## ✅ Tests et CI/CD
+
+```bash
+npm install
+npm test
+```
+
+Un pipeline GitHub Actions exécute automatiquement les tests et publie une image Docker sur GitHub Container Registry à chaque push sur `main`.
 
 ## 📂 Structure du projet
 
 ```
 secure-auth-app/
+├── .github/workflows/
+│   └── ci-cd.yml
 ├── src/
 │   ├── controllers/
 │   ├── middlewares/
 │   ├── routes/
-│   └── models/
+│   ├── models/
+│   └── app.js
+├── tests/
+│   └── health.test.js
+├── server.js
 ├── docker-compose.yml
 ├── Dockerfile
 └── README.md
@@ -67,4 +86,4 @@ secure-auth-app/
 ## 👤 Auteur
 
 **Yegor Tsyro** — Étudiant ingénieur en cybersécurité, ISEP Paris
-[LinkedIn](#) · [yegor.tsyro@eleve.isep.fr](mailto:yegor.tsyro@eleve.isep.fr)
+[yegor.tsyro@eleve.isep.fr](mailto:yegor.tsyro@eleve.isep.fr)
