@@ -76,6 +76,10 @@ secure-auth-app/
 ├── Dockerfile
 └── README.md
 ```
+## 📚 Documentation complémentaire
+
+- [Choix d'architecture](./ARCHITECTURE.md)
+- [Documentation de l'API](./docs/API.md)
 
 ## 📈 Pistes d'amélioration
 
